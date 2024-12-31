@@ -74,7 +74,7 @@ function Signup() {
     <div className="max-w-md mx-auto mt-10 p-5 border border-gray-300 rounded-lg bg-white shadow-lg">
       <div className="flex justify-between mx-2">
         <h1 className="text-4xl font-bold">Signup</h1>
-        <img src="src/assets/listify-logo.png" alt="Listify Logo" className="w-10 h-10" />
+        <img src="src/conponent/listify-logo.png" alt="Listify Logo" className="w-10 h-10" />
       </div>
       <p className="text-xl text-gray-500 mt-2">Create a New Account</p>
       <form onSubmit={submit}>

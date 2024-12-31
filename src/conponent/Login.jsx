@@ -6,7 +6,7 @@ function Login() {
     <div className='max-w-md mx-auto mt-10 p-5 border border-gray-300 rounded-lg bg-white shadow-lg'>
         <div className='flex justify-between ml-2'>
             <h1 className='text-4xl font-bold'>Login</h1>
-            <img src="src/assets/listify-logo.png" alt="" className="w-10 h-10"/>
+            <img src="src/conponent/listify-logo.png" alt="" className="w-10 h-10"/>
         </div>
         <p className='text-gray-600 mt-4 text-xl font-thin'>Enter your credentials to access your account</p>
         <div>

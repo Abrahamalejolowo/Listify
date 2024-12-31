@@ -21,7 +21,7 @@ function TodoApp() {
     <div className="max-w-md mx-auto mt-10 p-5 border border-gray-300 rounded-lg bg-white shadow-lg">
       <div className='flex justify-between'>
           <h1 className="text-4xl font-bold text-center text-black">Listify</h1>
-          <img src="src/assets/listify-logo.png" alt="" className="w-10 h-10"/>
+          <img src="src/conponent/listify-logo.png" alt="" className="w-10 h-10"/>
       </div>
       <div className="mt-5 flex gap-2">
         <input
