@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../config/firebase";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
 
@@ -12,6 +16,7 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
   const submit = async (e) => {
     e.preventDefault();
@@ -35,11 +40,11 @@ function Signup() {
           name: userName,
           email: user.email,
         });
+        toast.success("User created successfully", { position: "top-center" });
+        navigate("/Home");
       }
-
-      alert("User created successfully!");
     } catch (error) {
-      alert(`Error: ${error.message}`);
+      toast.error(`Error: ${error.message}`, { position: "top-center" });
     }
   };
 
@@ -48,26 +53,6 @@ function Signup() {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      if (user) {
-        await setDoc(doc(db, "users", user.uid), {
-          email: user.email,
-          firstName: user.displayName,
-          photo: user.photoURL,
-          lastName: "",
-        });
-        toast.success("User logged in successfully", { position: "top-center" });
-        window.location.href = "/profile";
-      }
-    } catch (error) {
-      console.error("Google login error:", error);
-      alert(`Error: ${error.message}`);
-    }
-  };
-  const Login = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
 
       if (user) {
         await setDoc(doc(db, "users", user.uid), {
@@ -78,8 +63,7 @@ function Signup() {
         });
 
         toast.success("User logged in successfully", { position: "top-center" });
-        
-        navigate("/Home");
+        navigate("/");
       }
     } catch (error) {
       toast.error(`Error: ${error.message}`, { position: "top-center" });
@@ -90,7 +74,7 @@ function Signup() {
     <div className="max-w-md mx-auto mt-10 p-5 border border-gray-300 rounded-lg bg-white shadow-lg">
       <div className="flex justify-between mx-2">
         <h1 className="text-4xl font-bold">Signup</h1>
-        <img src="src/assets/listify-high-resolution-logo.png" alt="Listify Logo" className="w-10 h-10" />
+        <img src="src/assets/listify-logo.png" alt="Listify Logo" className="w-10 h-10" />
       </div>
       <p className="text-xl text-gray-500 mt-2">Create a New Account</p>
       <form onSubmit={submit}>
@@ -134,33 +118,27 @@ function Signup() {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
-        <div className="flex justify-between" >
-          <Link to={"/login"} type="submit" className="bg-black text-white py-2 px-5 mt-4 text-2xl font-semibold hover:text-red-500">
+        <div className="flex justify-between">
+          <Link to={"/login"} className="bg-black text-white py-2 px-5 mt-4 text-2xl font-semibold hover:text-red-500">
             Signup
           </Link>
-          <Link to={"/login"} type="submit" className="bg-black text-white py-2 px-5 mt-4 text-2xl font-semibold hover:text-red-500">
+          <a href="/login"className=" text-blacl  mt-4 text-xl font-semibold hover:text-red-500">
             Login
-          </Link>
+          </a>
         </div>
       </form>
 
-    <Link to={"/Home"}
-      onClick={(e) => {
-        e.preventDefault(); 
-        Login();
-      }}
-      role="button"
-      tabIndex={0}
-      onKeyPress={(e) => e.key === "Enter" && Login()}
-      className="flex items-center justify-center mt-10 bg-gray-100"
-    >
-      <img
-        src="http://ts4.mm.bing.net/th?id=OIP.7BQvk_Vu5ovmSVWK0yZmaQHaHa&pid=15.1"
-        alt="Google Logo"
-        className="w-6 h-6 mr-3"
-      />
-      <span className="text-xl font-medium">Continue with Google</span>
-    </Link>
+      <button
+        onClick={googleLogin}
+        className="flex items-center justify-center mt-10 bg-gray-100"
+      >
+        <img
+          src="http://ts4.mm.bing.net/th?id=OIP.7BQvk_Vu5ovmSVWK0yZmaQHaHa&pid=15.1"
+          alt="Google Logo"
+          className="w-6 h-6 mr-3"
+        />
+        <span className="text-xl font-medium">Continue with Google</span>
+      </button>
     </div>
   );
 }
