@@ -122,9 +122,9 @@ function Signup() {
           <Link to={"/login"} className="bg-black text-white py-2 px-5 mt-4 text-2xl font-semibold hover:text-red-500">
             Signup
           </Link>
-          <a href="/login"className=" text-blacl  mt-4 text-xl font-semibold hover:text-red-500">
+          <Link to={"/Login"} className=" text-blacl  mt-4 text-xl font-semibold hover:text-red-500">
             Login
-          </a>
+          </Link>
         </div>
       </form>
 
